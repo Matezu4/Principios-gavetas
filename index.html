@@ -47,8 +47,7 @@ svg{width:100%;height:auto;display:block}
 .bx::after{content:"";position:absolute;top:-9px;left:-4px;right:-4px;height:16px;border:3px solid var(--wood);border-radius:50%;background:#0004}
 .suits{transform:rotateX(12deg);transform-style:preserve-3d}
 .deck{transform:rotateX(18deg) rotateZ(-6deg);box-shadow:2px 2px 0 #fff3,4px 4px 0 var(--bd),6px 6px 0 #fff3,8px 8px 0 var(--bd),10px 14px 12px #0004!important}
-.fgrp.walk .fig{animation:bob .55s ease-in-out infinite alternate;animation-delay:var(--d)}
-@keyframes bob{to{transform:translateY(-3px)}}
+
 .cf{position:fixed;top:-14px;width:9px;height:14px;z-index:9;pointer-events:none;animation:fall 2.6s ease-in forwards}
 @keyframes fall{to{transform:translateY(108vh) rotate(720deg)}}
 .drawer{width:84px;height:70px;border-radius:8px;background:linear-gradient(#5b3a1a,#2a1708);border:3px solid var(--wood);position:relative;box-shadow:inset 0 14px 14px #000a,6px 10px 12px #0005;transform:rotateX(16deg) rotateY(-16deg);flex:none}
@@ -60,8 +59,8 @@ svg{width:100%;height:auto;display:block}
 .fgrp{transition:transform .9s ease-in-out;will-change:transform}
 .dr{transition:transform .9s ease-in-out}
 .fig{transform-box:fill-box;transform-origin:50% 100%}
-.fig.hop{animation:hop .6s ease-in-out infinite alternate;animation-delay:var(--d)}
-@keyframes hop{to{transform:translateY(-12px) rotate(8deg)}}
+.fig.hop{animation:hop 1s ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes hop{to{transform:translateY(-8px)}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
 .b:disabled{opacity:.5;cursor:not-allowed}
 html{min-height:100%;background:radial-gradient(900px 500px at 12% -5%,color-mix(in srgb,var(--ac) 20%,transparent),transparent),radial-gradient(800px 500px at 100% 100%,color-mix(in srgb,var(--ok) 14%,transparent),transparent),var(--bg)}
@@ -85,12 +84,15 @@ body.h .b{font-size:17px;padding:12px 18px}
 body.h #app>.card:first-child{display:flex;align-items:center;justify-content:center}
 body.h #sc svg{max-height:46vh}
 @media(max-width:900px){body.h #app{grid-template-columns:1fr}}
+.qrj{background:#fff;padding:10px;border-radius:12px;width:min(100%,300px);margin:10px auto}.qrj svg,#dqb svg{width:100%;height:100%;display:block}
 .pt{animation:plant .6s cubic-bezier(.3,1.5,.5,1)}
 @keyframes plant{from{transform:translateY(-70px);opacity:0}}
 </style></head><body>
 <h1>🚪 Escape das Gavetas</h1>
 <div id="bar"></div>
 <main id="app"></main>
+<dialog id="dq" style="border:0;border-radius:16px;padding:18px;text-align:center;max-width:94vw"><div id="dqb" style="background:#fff;padding:12px;border-radius:12px;width:min(78vmin,560px);height:min(78vmin,560px);margin:auto"></div><p class="mut" id="dqu" style="word-break:break-all"></p><button class="b" onclick="this.closest('dialog').close()">Fechar</button></dialog>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 /* ===== CONFIGURAÇÃO ===== Cole aqui o config do seu projeto Firebase (Realtime Database).
    Deixe null para o modo demonstração (local, sincroniza só entre abas do mesmo navegador). */
@@ -115,6 +117,12 @@ const P=[
  {t:"Sala 5 · As meias",p:()=>"No escuro, cada grupo tira 1 meia da gaveta (3 cores). Quantas meias, no mínimo, garantem um par da mesma cor?",h:"Toque para pegar sua meia no escuro."}];
 const SOCK=["#e11d48","#2563eb","#16a34a"],SN=["vermelha","azul","verde"],sockSvg=c=>`<svg viewBox="0 0 40 52"><path d="M10 2h16v24l10 12q4 7-3 11l-5 2q-6 2-10-4L10 32Z" fill="${c}" stroke="#0005" stroke-width="2"/><rect x="10" y="6" width="16" height="5" fill="#fff7"/></svg>`;
 function confetti(){for(let i=0;i<44;i++){const d=document.createElement("i");d.className="cf";d.style.cssText=`left:${Math.random()*100}vw;background:${COL[i%12]};animation-delay:${Math.random()*.7}s`;document.body.appendChild(d);setTimeout(()=>d.remove(),3800)}}
+
+/* ===== QR code de entrada ===== */
+const joinUrl=()=>location.origin+location.pathname+"?sala="+ROOM;
+function qrSvg(t){if(typeof qrcode!="function")return"";const q=qrcode(0,"M");q.addData(t);q.make();const n=q.getModuleCount(),m=3;let d="";for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))d+=`M${c+m} ${r+m}h1v1h-1z`;const z=n+m*2;return`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${z} ${z}" shape-rendering="crispEdges" role="img" aria-label="QR code para entrar"><rect width="${z}" height="${z}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`}
+const qrBlock=()=>{const v=qrSvg(joinUrl());return v?`<div class="qrj">${v}</div>`:""};
+{const qb=document.createElement("button");qb.className="b g";qb.style.cssText="position:fixed;top:10px;right:62px;z-index:20;margin:0";qb.textContent="📱 QR";qb.title="QR code para entrar";qb.onclick=()=>{$("dqb").innerHTML=qrSvg(joinUrl());$("dqu").textContent=joinUrl();$("dq").showModal()};document.body.appendChild(qb)}
 
 /* ===== sons (gerados no navegador) ===== */
 const AU={c:null,on:true,
@@ -213,7 +221,7 @@ function sim(){const s=st(),p=s.phase,m=MV(p);GR().forEach(([g])=>{if(m[g]!==und
  set("mv/"+p+"/"+g,v);m[g]=v})}
 function hostRender(){if(!hostReady||!$("plan"))hostInit();const s=st(),ct=$("ct");let c="";
  if(!s.started){$("tg").textContent="Lobby";$("pb").textContent="Aguardando os grupos entrarem… (mínimo de 5 grupos, senão as salas do baralho e do quadrado podem não fechar)";
-  $("sc").innerHTML=`<p class="mut">Os grupos entram em: <b>${location.origin+location.pathname}?sala=${ROOM}</b></p><div class="chips">${GR().map(([id,g],i)=>`<span class="chip" style="background:${COL[i%12]}">${esc(g.n)} (${Object.keys(g.m||{}).length})</span>`).join("")||'<span class="mut">Nenhum grupo ainda.</span>'}</div>`;
+  $("sc").innerHTML=`<p class="mut">Os grupos entram em: <b>${joinUrl()}</b></p>${qrBlock()}<div class="chips">${GR().map(([id,g],i)=>`<span class="chip" style="background:${COL[i%12]}">${esc(g.n)} (${Object.keys(g.m||{}).length})</span>`).join("")||'<span class="mut">Nenhum grupo ainda.</span>'}</div>`;
   $("ms").innerHTML="";sk="";
   c=`<button class="b" ${GR().length<5?"disabled":""} onclick="set('state',{phase:0,door:'c',n:GR().length,started:1});hostReady=false">Iniciar jogo (${GR().length} grupos)</button>`+(FIREBASE_CONFIG?"":`<button class="b g" onclick="demoGroups()">+ Criar 6 grupos de teste</button>`);
   figs();place(0,false)}
