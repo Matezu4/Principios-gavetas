@@ -70,7 +70,8 @@ svg{width:100%;height:auto;display:block}
 <script>
 /* ===== CONFIGURAÇÃO ===== Cole aqui o config do seu projeto Firebase (Realtime Database).
    Deixe null para o modo demonstração (local, sincroniza só entre abas do mesmo navegador). */
-const FIREBASE_CONFIG={apiKey:"AIzaSyD9AOWpY-QS22AE3NCpr8km_jpSpgPW7U0",authDomain:"gavetas-125e7.firebaseapp.com",databaseURL:"https://gavetas-125e7-default-rtdb.firebaseio.com",projectId:"gavetas-125e7",appId:"1:520269459351:web:d7a6da3be5b029e80f1ed2"};
+const DEMO=new URLSearchParams(location.search).has("demo");
+const FIREBASE_CONFIG=DEMO?null:{apiKey:"AIzaSyD9AOWpY-QS22AE3NCpr8km_jpSpgPW7U0",authDomain:"gavetas-125e7.firebaseapp.com",databaseURL:"https://gavetas-125e7-default-rtdb.firebaseio.com",projectId:"gavetas-125e7",appId:"1:520269459351:web:d7a6da3be5b029e80f1ed2"};
 const Q=new URLSearchParams(location.search),ROOM=(Q.get("sala")||"turma").toLowerCase().replace(/[^a-z0-9-]/g,"").slice(0,20)||"turma";
 const $=i=>document.getElementById(i);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
