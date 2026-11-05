@@ -32,7 +32,7 @@ svg{width:100%;height:auto;display:block}
 .bx>span{position:absolute;top:2px;left:6px;font-size:11px;color:var(--mut)}
 .in{display:flex;flex-wrap:wrap-reverse;justify-content:center;align-content:flex-start;padding-bottom:4px}
 .ball{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fffa,#fff0 38%),var(--c);box-shadow:inset -4px -6px 8px #0005,0 5px 5px #0003;color:#fff;font:700 12px/32px sans-serif;text-align:center;animation:drop .85s cubic-bezier(.35,0,.65,1)}
-@keyframes drop{0%{transform:translateY(-200px) scale(1.15)}55%{transform:translateY(0)}72%{transform:translateY(-24px)}88%{transform:translateY(0)}100%{transform:translateY(0)}}
+@keyframes drop{0%{transform:translateY(-200px) scale(1.15)}55%{transform:translateY(0) scale(1.18,.8)}72%{transform:translateY(-24px)}88%{transform:translateY(0)}100%{transform:translateY(0)}}
 /* cena 2: cartas */
 .deckrow{display:flex;gap:12px;align-items:flex-start;perspective:600px}
 .deck{width:60px;height:84px;border-radius:8px;background:repeating-linear-gradient(45deg,var(--ac),var(--ac) 6px,#6366f1 6px,#6366f1 12px);border:3px solid var(--card);box-shadow:4px 4px 0 var(--bd);flex:none}
@@ -47,8 +47,8 @@ svg{width:100%;height:auto;display:block}
 .bx::after{content:"";position:absolute;top:-9px;left:-4px;right:-4px;height:16px;border:3px solid var(--wood);border-radius:50%;background:#0004}
 .suits{transform:rotateX(12deg);transform-style:preserve-3d}
 .deck{transform:rotateX(18deg) rotateZ(-6deg);box-shadow:2px 2px 0 #fff3,4px 4px 0 var(--bd),6px 6px 0 #fff3,8px 8px 0 var(--bd),10px 14px 12px #0004!important}
-.fgrp.walk .fig{animation:bob .3s ease-in-out infinite alternate}
-@keyframes bob{to{transform:translateY(-5px) rotate(5deg)}}
+.fgrp.walk .fig{animation:bob .55s ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes bob{to{transform:translateY(-3px)}}
 .cf{position:fixed;top:-14px;width:9px;height:14px;z-index:9;pointer-events:none;animation:fall 2.6s ease-in forwards}
 @keyframes fall{to{transform:translateY(108vh) rotate(720deg)}}
 .drawer{width:84px;height:70px;border-radius:8px;background:linear-gradient(#5b3a1a,#2a1708);border:3px solid var(--wood);position:relative;box-shadow:inset 0 14px 14px #000a,6px 10px 12px #0005;transform:rotateX(16deg) rotateY(-16deg);flex:none}
@@ -56,14 +56,38 @@ svg{width:100%;height:auto;display:block}
 .sk{width:34px;margin:4px auto;animation:throw .9s cubic-bezier(.2,.7,.3,1)}
 @keyframes throw{0%{transform:translate(-130px,-50px) rotate(-200deg) scale(.3);opacity:0}60%{transform:translate(0,-26px) rotate(15deg) scale(1.15);opacity:1}100%{transform:none}}
 /* balança e figuras */
-#bm,.pan{transition:transform 1s cubic-bezier(.3,.1,.3,1)}
-.fgrp{transition:transform .9s ease-in-out}
+#bm,.pan{transition:transform 1.1s cubic-bezier(.3,1.5,.5,1)}
+.fgrp{transition:transform .9s ease-in-out;will-change:transform}
 .dr{transition:transform .9s ease-in-out}
 .fig{transform-box:fill-box;transform-origin:50% 100%}
 .fig.hop{animation:hop .6s ease-in-out infinite alternate;animation-delay:var(--d)}
 @keyframes hop{to{transform:translateY(-12px) rotate(8deg)}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
-.b:disabled{opacity:.5;cursor:not-allowed}</style></head><body>
+.b:disabled{opacity:.5;cursor:not-allowed}
+html{min-height:100%;background:radial-gradient(900px 500px at 12% -5%,color-mix(in srgb,var(--ac) 20%,transparent),transparent),radial-gradient(800px 500px at 100% 100%,color-mix(in srgb,var(--ok) 14%,transparent),transparent),var(--bg)}
+body{background:transparent;min-height:100vh}
+body.h{max-width:1600px;padding:16px 28px}
+body.h h1{font-size:clamp(22px,2.4vw,34px)}
+body.h #app{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:stretch}
+body.h #app .card{margin-top:0;box-shadow:0 10px 30px #0002}
+body.h .prob{font-size:clamp(22px,2.1vw,32px)}
+body.h .tag{font-size:14px}
+body.h .msg{font-size:clamp(16px,1.4vw,20px)}
+body.h .bx{height:clamp(150px,19vw,260px)}
+body.h .ball{width:46px;height:46px;font-size:15px;line-height:46px}
+body.h .suit{min-height:clamp(200px,26vw,330px)}
+body.h .suit .h{font-size:34px}
+body.h .cd{width:66px;height:92px;font-size:20px}
+body.h .sk{width:50px}
+body.h .deck{width:80px;height:112px}
+body.h .drawer{width:130px;height:104px}
+body.h .b{font-size:17px;padding:12px 18px}
+body.h #app>.card:first-child{display:flex;align-items:center;justify-content:center}
+body.h #sc svg{max-height:46vh}
+@media(max-width:900px){body.h #app{grid-template-columns:1fr}}
+.pt{animation:plant .6s cubic-bezier(.3,1.5,.5,1)}
+@keyframes plant{from{transform:translateY(-70px);opacity:0}}
+</style></head><body>
 <h1>🚪 Escape das Gavetas</h1>
 <div id="bar"></div>
 <main id="app"></main>
@@ -78,7 +102,7 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 let UID="";function fail(m){console.warn(m);let b=$("err");if(!b){b=document.createElement("div");b.id="err";b.style.cssText="position:fixed;left:8px;right:8px;bottom:8px;background:#b3261e;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;font:600 14px system-ui";document.body.appendChild(b)}b.textContent=m;clearTimeout(b._t);b._t=setTimeout(()=>b.remove(),7000)}
 const COL=["#4f46e5","#db2777","#d97706","#059669","#0891b2","#9333ea","#dc2626","#65a30d","#0d9488","#c2410c","#7c3aed","#be185d"];
 const SU="♠♥♦♣",RK=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
-let cf=-1,tree={},set=()=>{},role=Q.has("host")?"host":"part",me={},last="",sk="",fig=-1,hostReady=false;
+let seen3=new Set(),hd="",hk=[-1,0],bf=-1,cf=-1,tree={},set=()=>{},role=Q.has("host")?"host":"part",me={},last="",sk="",fig=-1,hostReady=false;
 try{me=JSON.parse(sessionStorage.getItem("gav-me"))||{}}catch(e){}
 const st=()=>tree.state||{},GR=()=>Object.entries(tree.g||{}).sort((a,b)=>a[1].t-b[1].t),MV=p=>(tree.mv&&tree.mv[p])||{};
 const gi=id=>GR().findIndex(x=>x[0]==id),gc=id=>COL[Math.max(0,gi(id))%COL.length];
@@ -91,6 +115,20 @@ const P=[
  {t:"Sala 5 · As meias",p:()=>"No escuro, cada grupo tira 1 meia da gaveta (3 cores). Quantas meias, no mínimo, garantem um par da mesma cor?",h:"Toque para pegar sua meia no escuro."}];
 const SOCK=["#e11d48","#2563eb","#16a34a"],SN=["vermelha","azul","verde"],sockSvg=c=>`<svg viewBox="0 0 40 52"><path d="M10 2h16v24l10 12q4 7-3 11l-5 2q-6 2-10-4L10 32Z" fill="${c}" stroke="#0005" stroke-width="2"/><rect x="10" y="6" width="16" height="5" fill="#fff7"/></svg>`;
 function confetti(){for(let i=0;i<44;i++){const d=document.createElement("i");d.className="cf";d.style.cssText=`left:${Math.random()*100}vw;background:${COL[i%12]};animation-delay:${Math.random()*.7}s`;document.body.appendChild(d);setTimeout(()=>d.remove(),3800)}}
+
+/* ===== sons (gerados no navegador) ===== */
+const AU={c:null,on:true,
+ x(){if(!this.c){try{this.c=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(this.c&&this.c.state=="suspended")this.c.resume();return this.c},
+ t(f,d,ty="sine",v=.15,w=0,gl){const c=this.x();if(!c||!this.on)return;const o=c.createOscillator(),g=c.createGain(),t0=c.currentTime+w;o.type=ty;o.frequency.setValueAtTime(f,t0);if(gl)o.frequency.exponentialRampToValueAtTime(gl,t0+d);g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.001,t0+d);o.connect(g).connect(c.destination);o.start(t0);o.stop(t0+d+.03)},
+ n(d,v=.2,fr=800,w=0){const c=this.x();if(!c||!this.on)return;const L=Math.floor(c.sampleRate*d),bf=c.createBuffer(1,L,c.sampleRate),D=bf.getChannelData(0);for(let i=0;i<L;i++)D[i]=(Math.random()*2-1)*(1-i/L);const s=c.createBufferSource(),fl=c.createBiquadFilter(),g=c.createGain(),t0=c.currentTime+w;s.buffer=bf;fl.type="bandpass";fl.frequency.value=fr;g.gain.value=v;s.connect(fl).connect(g).connect(c.destination);s.start(t0)},
+ door(){this.t(90,1,"sawtooth",.07,0,210);this.t(140,.9,"square",.03,.1,260);this.n(.7,.1,500);this.t(60,.3,"sine",.35,1,35);this.n(.25,.18,180,1)},
+ ding(){[660,880,1320].forEach((f,i)=>this.t(f,.45,"triangle",.13,i*.11))},
+ pop(){this.t(520,.14,"sine",.2,0,150);this.n(.05,.08,1500)},
+ bad(){this.t(190,.4,"sawtooth",.12,0,80)},
+ step(){this.n(.07,.12,260)},
+ fan(){[523,659,784,1047,784,1047,1319].forEach((f,i)=>this.t(f,.3,"square",.07,i*.13))}};
+addEventListener("pointerdown",()=>AU.x());
+{const sb=document.createElement("button");sb.className="b g";sb.style.cssText="position:fixed;top:10px;right:12px;z-index:20;margin:0";sb.textContent="🔊";sb.title="Som";sb.onclick=()=>{AU.on=!AU.on;sb.textContent=AU.on?"🔊":"🔇"};document.body.appendChild(sb)}
 
 /* ===== banco de dados ===== */
 function localDB(){let bc;try{bc=new BroadcastChannel("gav-"+ROOM)}catch(e){}
@@ -142,16 +180,16 @@ function figs(){const n=st().n||GR().length||1;let h="";
  $("fg").innerHTML=h}
 function place(r,anim){const g=$("fg"),m=a=>`translate(${a[0]}px,${a[1]}px)`;
  if(!anim||fig<0||r<=fig){g.style.transitionDuration="0s";g.style.transform=m(RC[r])}
- else{g.style.transitionDuration=".9s";g.classList.add("walk");g.style.transform=m(DP[fig]);setTimeout(()=>{g.style.transform=m(RC[r]);setTimeout(()=>{g.classList.remove("walk");if(r==5){g.querySelectorAll(".fig").forEach(f=>f.classList.add("hop"));confetti()}},950)},950)}
+ else{[0,220,440,660,1000,1220,1440,1660].forEach(t=>setTimeout(()=>AU.step(),t));g.style.transitionDuration=".9s";g.classList.add("walk");g.style.transform=m(DP[fig]);setTimeout(()=>{g.style.transform=m(RC[r]);setTimeout(()=>{g.classList.remove("walk");if(r==5){g.querySelectorAll(".fig").forEach(f=>f.classList.add("hop"));confetti();AU.fan()}},950)},950)}
  if(r==5&&!anim)g.querySelectorAll(".fig").forEach(f=>f.classList.add("hop"));fig=r}
 
 /* ===== apresentador ===== */
-function hostInit(){$("app").innerHTML=`<div class="card"><svg id="plan" viewBox="30 0 410 260"></svg></div><div class="card"><span class="tag" id="tg"></span><div class="prob" id="pb"></div><div id="sc"></div><div id="ms"></div><div id="ct"></div></div>`;buildPlan();figs();fig=-1;sk="";hostReady=true}
+function hostInit(){document.body.classList.add("h");$("app").innerHTML=`<div class="card"><svg id="plan" viewBox="30 0 410 260"></svg></div><div class="card"><span class="tag" id="tg"></span><div class="prob" id="pb"></div><div id="sc"></div><div id="ms"></div><div id="ct"></div></div>`;buildPlan();figs();fig=-1;sk="";hostReady=true}
 function scene(p){
  if(p==0){$("sc").innerHTML='<div class="st3"><div class="row3">'+Array.from({length:NB()},(_,i)=>`<div class="bx" id="bx${i}"><span>${i+1}</span><div class="in"></div></div>`).join("")+"</div></div>"}
  if(p==1){$("sc").innerHTML='<div class="deckrow"><div class="deck"></div><div class="suits">'+[0,1,2,3].map(s=>`<div class="suit" id="su${s}"><div class="h" style="color:${s==1||s==2?"var(--red)":"var(--tx)"}">${SU[s]}</div></div>`).join("")+"</div></div>"}
  if(p==2){$("sc").innerHTML='<svg viewBox="0 0 300 230"><path d="M150 52L120 215H180Z" fill="var(--bd)"/><g id="bm"style="transform-origin:150px 50px"><rect x="40" y="47" width="220" height="6" rx="3" fill="var(--wood)"/></g><g id="pl" class="pan"></g><g id="pr" class="pan"></g></svg>'}
- if(p==3){$("sc").innerHTML=""}
+ if(p==3){seen3=new Set();$("sc").innerHTML=""}
  if(p==4){$("sc").innerHTML='<div class="deckrow"><div><div class="drawer"></div><p class="mut">no escuro 🔦</p></div><div class="suits" style="grid-template-columns:repeat(3,1fr)">'+[0,1,2].map(i=>`<div class="suit" id="sk${i}"><div class="h" style="color:${SOCK[i]}">●</div></div>`).join("")+"</div></div>"}}
 function upScene(p){const m=MV(p),E=Object.entries(m);
  if(p==0){E.forEach(([g,v])=>{if(!$("b"+g)&&$("bx"+v)){const b=document.createElement("div");b.className="ball";b.id="b"+g;b.style.setProperty("--c",gc(g));b.textContent=gi(g)+1;$("bx"+v).querySelector(".in").appendChild(b)}});
@@ -165,9 +203,9 @@ function upScene(p){const m=MV(p),E=Object.entries(m);
    for(let i=0;i<cnt;i++)h+=`<circle cx="${(i%4)*16-24}" cy="${34-Math.floor(i/4)*16}" r="7" fill="${cl[i]||"#888"}"/><circle cx="${(i%4)*16-26}" cy="${32-Math.floor(i/4)*16}" r="2.2" fill="#fff8"/>`;$(id).innerHTML=h;$(id).style.transform=`translate(${x}px,${y}px)`};
   const lc=E.filter(e=>e[1]==0).map(e=>gc(e[0])),rc=E.filter(e=>e[1]==1).map(e=>gc(e[0]));if(ex)lc.push("#888");
   pan("pl",150-110*Math.cos(a),50-110*Math.sin(a),L,lc);pan("pr",150+110*Math.cos(a),50+110*Math.sin(a),R,rc)}
- if(p==3){let h='<svg viewBox="0 0 300 300" style="max-width:340px;margin:auto"><rect width="300" height="300" fill="none" stroke="var(--tx)" stroke-width="3"/><path d="M150 0V300M0 150H300" stroke="var(--bd)" stroke-width="2"/>';
-  const q=pairSq();if(q)h+=`<line x1="${q[0].x*300}" y1="${q[0].y*300}" x2="${q[1].x*300}" y2="${q[1].y*300}" stroke="var(--red)" stroke-width="4"/>`;
-  E.forEach(([g,v])=>h+=`<circle cx="${v.x*300}" cy="${v.y*300}" r="11" fill="${gc(g)}"/><text x="${v.x*300}" y="${v.y*300+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${gi(g)+1}</text>`);$("sc").innerHTML=h+"</svg>"}}
+ if(p==3){let h='<svg viewBox="0 0 300 330" style="max-width:460px;margin:auto;transform:perspective(900px) rotateX(26deg);filter:drop-shadow(0 16px 10px #0005)"><rect y="20" width="300" height="300" fill="color-mix(in srgb,var(--ac) 8%,var(--card))" stroke="var(--tx)" stroke-width="3"/><path d="M150 20V320M0 170H300" stroke="var(--bd)" stroke-width="2"/>';
+  const q=pairSq();if(q)h+=`<line x1="${q[0].x*300}" y1="${q[0].y*300+20}" x2="${q[1].x*300}" y2="${q[1].y*300+20}" stroke="var(--red)" stroke-width="4"/>`;
+  E.forEach(([g,v])=>{const X=v.x*300,Y=v.y*300+20,nw=!seen3.has(g);seen3.add(g);h+=`<g class="${nw?"pt":""}"><ellipse cx="${X}" cy="${Y+2}" rx="10" ry="4" fill="#0005"/><line x1="${X}" y1="${Y}" x2="${X}" y2="${Y-16}" stroke="#9aa" stroke-width="2.5"/><circle cx="${X}" cy="${Y-21}" r="11" fill="${gc(g)}"/><circle cx="${X-3.5}" cy="${Y-25}" r="3.4" fill="#fff6"/><text x="${X}" y="${Y-17}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${gi(g)+1}</text></g>`});$("sc").innerHTML=h+"</svg>"}}
 function sim(){const s=st(),p=s.phase,m=MV(p);GR().forEach(([g])=>{if(m[g]!==undefined)return;let v;
  if(p==0){const c=cnts();const f=c.map((x,i)=>x?-1:i).filter(i=>i>=0);v=f.length?f[Math.floor(Math.random()*f.length)]:Math.floor(Math.random()*NB());m[g]=v}
  if(p==1)v={s:Math.floor(Math.random()*4),r:RK[Math.floor(Math.random()*13)]};
@@ -180,21 +218,22 @@ function hostRender(){if(!hostReady||!$("plan"))hostInit();const s=st(),ct=$("ct
   c=`<button class="b" ${GR().length<5?"disabled":""} onclick="set('state',{phase:0,door:'c',n:GR().length,started:1});hostReady=false">Iniciar jogo (${GR().length} grupos)</button>`+(FIREBASE_CONFIG?"":`<button class="b g" onclick="demoGroups()">+ Criar 6 grupos de teste</button>`);
   figs();place(0,false)}
  else{const p=s.phase,key=p+"|"+NB();if(key!=sk){sk=key;$("tg").textContent=P[p].t;$("pb").textContent=P[p].p();scene(p)}
+  const dk=p+"|"+s.door;if(dk!==hd){if(s.door=="o"&&hd!=="")AU.door();hd=dk}const mk=Object.keys(MV(p)).length;if(hk[0]==p&&mk>hk[1])AU.pop();hk=[p,mk];
   upScene(p);const r=s.fin?5:p+(s.door=="o"?1:0);if(r!=fig)place(r,fig>=0);
   DR.forEach((d,i)=>{$("dr"+i).style.transform=(i<p||(i==p&&s.door=="o"))?`rotate(${d[4]=="v"?-82:82}deg)`:"none"});
-  const res=s.door=="o"?null:result();if(res&&res.ok&&cf!=p){cf=p;confetti()}
+  const res=s.door=="o"?null:result();if(res&&res.ok&&cf!=p){cf=p;confetti();AU.ding()}if(res&&!res.ok&&bf!=p){bf=p;AU.bad()}
   $("ms").innerHTML=s.fin?'<div class="msg ok">🎉 A turma inteira escapou junta! Cada sala foi um princípio das gavetas.</div>':res?`<div class="msg ${res.ok?"ok":"bad"}">${res.ok?"✔ ":"✘ "}${res.t}</div>`:`<div class="mut">${Object.keys(MV(p)).length} de ${s.n} grupos jogaram…</div>`;
   if(s.fin)c=`<button class="b g" onclick="resetAll()">Jogar de novo</button>`;
   else if(s.door=="o")c=`<button class="b" onclick="nextRoom()">${p<4?"Próxima sala →":"Sair da casa 🚪"}</button>`;
   else{if(res&&res.ok)c=`<button class="b" onclick="set('state/door','o')">Abrir a porta 🚪</button>`;
    c+=(FIREBASE_CONFIG?"":`<button class="b g" onclick="sim()">Simular grupos restantes</button>`)+`<button class="b g" onclick="set('mv/${p}',null);sk='';cf=-1;">Recomeçar sala</button>`}}
  ct.innerHTML=c}
-function nextRoom(){const p=st().phase;if(p>=4){set("state/fin",true);return}set("state/phase",p+1);set("state/door","c");sk=""}
+function nextRoom(){const p=st().phase;if(p>=4){set("state/fin",true);return}set("state",{phase:p+1,door:"c",n:st().n,started:1});sk=""}
 function resetAll(){set("state",null);set("mv",null);set("g",null);hostReady=false;sk="";fig=-1;cf=-1}
 function demoGroups(){["Águias","Tigres","Lobos","Corujas","Raposas","Pandas"].forEach((n,i)=>{const id=n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(!(tree.g&&tree.g[id]))set("g/"+id,{n,t:Date.now()+i,m:{x:"Colega"}})})}
 
 /* ===== participante ===== */
-function partRender(){const s=st();let h;hostReady=false;
+function partRender(){const s=st();let h;hostReady=false;document.body.classList.remove("h");
  if(!me.gid)h=`<div class="card"><b>Entrar na sala "${ROOM}"</b><input id="nm" placeholder="Seu nome" maxlength="20"><input id="gn" placeholder="Nome do seu grupo" maxlength="20"><p class="mut">Quem usar o mesmo nome de grupo entra na mesma equipe.</p><button class="b" onclick="join()">Entrar</button></div>`;
  else{const g=(tree.g||{})[me.gid]||{n:"…",m:{}},top=`<div class="chips"><span class="chip" style="background:${gc(me.gid)}">${esc(g.n)}</span><span class="mut">${esc(me.name)}</span></div>`;
   if(!s.started)h=`<div class="card">${top}<p><b>Tudo certo!</b> Aguardando o apresentador iniciar…</p><p class="mut">${GR().length} grupo(s) na sala.</p></div>`;
