@@ -125,11 +125,12 @@ const PL=()=>tree.p||{},PLN=()=>Object.keys(PL()).length,st=()=>tree.state||{},G
 const gi=id=>GR().findIndex(x=>x[0]==id),gc=id=>COL[Math.max(0,gi(id))%COL.length];
 const pi=id=>{const i=Object.entries(PL()).sort((a,b)=>a[1].t-b[1].t).findIndex(x=>x[0]==id);return i<0?"•":i+1},gcp=id=>{const p=PL()[id];return p?gc(p.g):"#888"};
 const NB=()=>Math.max(2,Math.min(8,(st().n||PLN())-1));
+const KT=()=>Math.max(2,Math.floor(((st().n||PLN())-1)/4)+1),NEED=()=>4*(KT()-1)+1;
 const P=[
  {t:"Sala 1 · As caixas",p:()=>`São ${NB()} caixas e ${st().n} bolas, uma por jogador. Combinem: nenhuma caixa pode ficar vazia!`,h:"Escolha uma caixa. Olhe o telão e converse com a turma."},
- {t:"Sala 2 · O baralho",p:()=>"O cofre abre com 2 cartas do mesmo naipe. Cada jogador tira 1 carta. Quantas, no mínimo, garantem a abertura?",h:"Toque para tirar sua carta."},
+ {t:"Sala 2 · O baralho",p:()=>`O cofre abre com ${KT()} cartas do mesmo naipe. Cada jogador tira 1 carta. Quantas cartas, no mínimo, garantem a abertura?`,h:"Toque para tirar sua carta."},
  {t:"Sala 3 · A balança",p:()=>"Cada jogador põe uma bola num prato. Equilibrem a balança!",h:"Escolha o prato esquerdo ou o direito."},
- {t:"Sala 4 · O quadrado",p:()=>"Cada jogador crava 1 ponto num quadrado 2 × 2. Com 5 pontos, o que sempre acontece?",h:"Toque no quadrado para cravar seu ponto."},
+ {t:"Sala 4 · O quadrado",p:()=>`Cada jogador crava 1 ponto num quadrado 2 × 2, dividido em 4. Com ${st().n} pontos, o que sempre acontece em algum quadradinho?`,h:"Toque no quadrado para cravar seu ponto."},
  {t:"Sala 5 · As meias",p:()=>"No escuro, cada jogador tira 1 meia da gaveta (3 cores). Quantas meias, no mínimo, garantem um par da mesma cor?",h:"Toque para pegar sua meia no escuro."}];
 const SOCK=["#e11d48","#2563eb","#16a34a"],SN=["vermelha","azul","verde"],sockSvg=c=>`<svg viewBox="0 0 40 52"><path d="M10 2h16v24l10 12q4 7-3 11l-5 2q-6 2-10-4L10 32Z" fill="${c}" stroke="#0005" stroke-width="2"/><rect x="10" y="6" width="16" height="5" fill="#fff7"/></svg>`;
 function confetti(){for(let i=0;i<44;i++){const d=document.createElement("i");d.className="cf";d.style.cssText=`left:${Math.random()*100}vw;background:${COL[i%12]};animation-delay:${Math.random()*.7}s`;document.body.appendChild(d);setTimeout(()=>d.remove(),3800)}}
@@ -215,14 +216,17 @@ function pt(e){const r=e.currentTarget.getBoundingClientRect();send({x:(e.client
 
 /* ===== regras ===== */
 function cnts(){const c=Array(NB()).fill(0);Object.values(MV(0)).forEach(v=>{if(c[v]!==undefined)c[v]++});return c}
-function pairSq(){const a=Object.values(MV(3)),q=p=>(p.x>.5?1:0)+(p.y>.5?2:0);
- for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)if(q(a[i])==q(a[j]))return[a[i],a[j]];return null}
+function pairSq(){const k=KT(),a=Object.values(MV(3)),q=p=>(p.x>.5?1:0)+(p.y>.5?2:0),b=[[],[],[],[]];a.forEach(p=>b[q(p)].push(p));const f=b.find(x=>x.length>=k);return f?f.slice(0,k):null}
 function result(){const p=st().phase,m=MV(p),k=Object.keys(m).length,n=st().n;
  if(p==4){const c=[0,0,0];Object.values(m).forEach(v=>c[v.c]++);return c.some(x=>x>1)?{ok:1,t:"Par formado! No pior caso saem 3 cores diferentes e a 4ª meia repete. Pombos: as meias. Gavetas: as 3 cores."}:null}
  if(p==0){if(k<n)return null;return cnts().every(x=>x>=1)?{ok:1,t:`Todas as ${NB()} caixas ocupadas com ${n} bolas: alguma caixa tem pelo menos ${Math.ceil(n/NB())}. Pombos: as bolas. Gavetas: as caixas.`}:{ok:0,t:"Ficou caixa vazia (e repetição antes da hora). Conversem e recomecem!"}}
- if(p==1){const c=[0,0,0,0];Object.values(m).forEach(v=>c[v.s]++);return c.some(x=>x>1)?{ok:1,t:"Cofre aberto! No pior caso saem 4 naipes diferentes e a 5ª carta repete. Pombos: cartas. Gavetas: naipes."}:null}
+ if(p==1){const c=[0,0,0,0],k=KT();Object.values(m).forEach(v=>c[v.s]++);return c.some(x=>x>=k)?{ok:1,t:`Cofre aberto! ${k} cartas do mesmo naipe. Pior caso: ${k-1} de cada naipe (${4*(k-1)} cartas) e a ${NEED()}ª obriga a repetir. Pombos: cartas. Gavetas: os 4 naipes. Conta: ⌈${NEED()}/4⌉ = ${k}.`}:null}
  if(p==2){if(k<n)return null;const L=Object.values(m).filter(v=>v==0).length+(n%2==0?1:0),T=n+(n%2==0?1:0);return{ok:1,t:`Impossível equilibrar: ${T} bolas em 2 pratos. Algum prato tem pelo menos ${Math.ceil(T/2)} (esq. ${L}, dir. ${T-L}).`}}
- const q=pairSq();if(q){const d=Math.hypot(q[0].x-q[1].x,q[0].y-q[1].y)*2;return{ok:1,t:`Dois pontos no mesmo quadradinho, a ${d.toFixed(2)} de distância (no máx. √2 ≈ 1,41). Pombos: pontos. Gavetas: 4 quadradinhos.`}}return null}
+ const q=pairSq();if(q){const k=q.length,dd=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)*2;let ex="";
+  if(k==2)ex=`Distância: ${dd(q[0],q[1]).toFixed(2)} (no máx. √2 ≈ 1,41).`;
+  else if(k==3){const[a,b,c]=q,A=Math.abs(a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y))/2*4;ex=`Eles formam um triângulo de área ${A.toFixed(2)} (no máx. 1/2).`}
+  else{let mx=0;q.forEach(a=>q.forEach(b=>mx=Math.max(mx,dd(a,b))));ex=`Maior distância entre eles: ${mx.toFixed(2)} (no máx. √2 ≈ 1,41).`}
+  return{ok:1,t:`${k} pontos no mesmo quadradinho! ${ex} Pior caso: ${k-1} em cada quadradinho (${4*(k-1)} pontos) e o ${4*(k-1)+1}º obriga. Pombos: pontos. Gavetas: 4 quadradinhos.`}}return null}
 
 /* ===== planta da casa ===== */
 const RC=[[105,70],[235,70],[365,70],[365,190],[235,190],[105,190]],DP=[[170,60],[300,60],[360,130],[300,190],[170,190]],RN=["Sala","Biblioteca","Cofre","Ateliê","Quarto"];
@@ -252,7 +256,7 @@ function upScene(p){const m=MV(p),E=Object.entries(m);
  if(p==0){E.forEach(([g,v])=>{if(!$("b"+g)&&$("bx"+v)){const b=document.createElement("div");b.className="ball";b.id="b"+g;b.style.setProperty("--c",gcp(g));b.textContent=pi(g);$("bx"+v).querySelector(".in").appendChild(b)}});
   cnts().forEach((c,i)=>$("bx"+i)&&$("bx"+i).classList.toggle("hit",c>1))}
  if(p==1){E.forEach(([g,v])=>{if(!$("c"+g)&&$("su"+v.s)){const c=document.createElement("div");c.className="cd"+(v.s==1||v.s==2?" r":"");c.id="c"+g;c.textContent=v.r+SU[v.s];fly(c,$("su"+v.s),document.querySelector(".deck"),false)}});
-  [0,1,2,3].forEach(s=>$("su"+s).classList.toggle("hit",E.filter(e=>e[1].s==s).length>1))}
+  [0,1,2,3].forEach(s=>$("su"+s).classList.toggle("hit",E.filter(e=>e[1].s==s).length>=KT()))}
  if(p==4){E.forEach(([g,v])=>{if(!$("s"+g)&&$("sk"+v.c)){const d=document.createElement("div");d.className="sk";d.id="s"+g;d.innerHTML=sockSvg(SOCK[v.c]);fly(d,$("sk"+v.c),document.querySelector(".drawer"),true)}});[0,1,2].forEach(i=>$("sk"+i).classList.toggle("hit",E.filter(e=>e[1].c==i).length>1))}
  if(p==2){const n=st().n,ex=n%2==0?1:0,L=E.filter(e=>e[1]==0).length+ex,R=E.filter(e=>e[1]==1).length,A=Math.max(-18,Math.min(18,(R-L)*5)),a=A*Math.PI/180;
   $("bm").style.transform=`rotate(${A}deg)`;
@@ -261,7 +265,7 @@ function upScene(p){const m=MV(p),E=Object.entries(m);
   const lc=E.filter(e=>e[1]==0).map(e=>gcp(e[0])),rc=E.filter(e=>e[1]==1).map(e=>gcp(e[0]));if(ex)lc.push("#888");
   pan("pl",150-110*Math.cos(a),50-110*Math.sin(a),L,lc);pan("pr",150+110*Math.cos(a),50+110*Math.sin(a),R,rc)}
  if(p==3){let h='<svg viewBox="0 0 300 330" style="max-width:460px;margin:auto;transform:perspective(900px) rotateX(26deg);filter:drop-shadow(0 16px 10px #0005)"><rect y="20" width="300" height="300" fill="color-mix(in srgb,var(--ac) 8%,var(--card))" stroke="var(--tx)" stroke-width="3"/><path d="M150 20V320M0 170H300" stroke="var(--bd)" stroke-width="2"/>';
-  const q=pairSq();if(q)h+=`<line x1="${q[0].x*300}" y1="${q[0].y*300+20}" x2="${q[1].x*300}" y2="${q[1].y*300+20}" stroke="var(--red)" stroke-width="4"/>`;
+  const q=pairSq();if(q)h+=`<polygon points="${q.map(p=>(p.x*300)+","+(p.y*300+20)).join(" ")}" fill="#dc262633" stroke="var(--red)" stroke-width="4" stroke-linejoin="round"/>`;
   E.forEach(([g,v])=>{const X=v.x*300,Y=v.y*300+20,nw=!seen3.has(g);seen3.add(g);h+=`<g class="${nw?"pt":""}"><ellipse cx="${X}" cy="${Y+2}" rx="10" ry="4" fill="#0005"/><line x1="${X}" y1="${Y}" x2="${X}" y2="${Y-16}" stroke="#9aa" stroke-width="2.5"/><circle cx="${X}" cy="${Y-21}" r="11" fill="${gcp(g)}"/><circle cx="${X-3.5}" cy="${Y-25}" r="3.4" fill="#fff6"/><text x="${X}" y="${Y-17}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${pi(g)}</text></g>`});$("sc").innerHTML=h+"</svg>"}}
 function fill(ids){const s=st(),p=s.phase;if(s.door=="o")return;const m=MV(p),k=Object.keys(m).length,c=cnts(),a=ids||Object.keys(PL()).filter(i=>m[i]===undefined);
  if(!ids)for(let i=a.length;i<s.n-k;i++)a.push("rs"+Date.now().toString(36)+i);
