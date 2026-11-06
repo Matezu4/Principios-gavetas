@@ -3,10 +3,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Escape das Gavetas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=VT323&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:"Greenth";src:local("Greenth"),local("Greenth Regular"),url("Greenth.otf") format("opentype");font-display:swap}
-:root{--fh:"Greenth","Pixelify Sans",system-ui,sans-serif;--fb:"VT323","Courier New",monospace;--bg:#faf8f4;--card:#fff;--tx:#1f2430;--mut:#6b7280;--ac:#4f46e5;--ok:#16a34a;--bd:#e5e1d8;--red:#dc2626;--r0:#f3e6cf;--r1:#e8d5b5;--grass:#bfe3b0;--wood:#8a5a2b}
+:root{--fh:"Greenth","Jersey 25",system-ui,sans-serif;--fb:"VT323","Courier New",monospace;--bg:#faf8f4;--card:#fff;--tx:#1f2430;--mut:#6b7280;--ac:#4f46e5;--ok:#16a34a;--bd:#e5e1d8;--red:#dc2626;--r0:#f3e6cf;--r1:#e8d5b5;--grass:#bfe3b0;--wood:#8a5a2b}
 @media(prefers-color-scheme:dark){:root{--bg:#14161c;--card:#1d2029;--tx:#eceef4;--mut:#9aa1b2;--ac:#818cf8;--ok:#4ade80;--bd:#2c303c;--red:#f87171;--r0:#3a3226;--r1:#332c22;--grass:#2f4a2c;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:21px/1.2 var(--fb);padding:14px;max-width:760px;margin:0 auto}
@@ -67,18 +67,18 @@ svg{width:100%;height:auto;display:block}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
 .b:disabled{opacity:.5;cursor:not-allowed}
 h1,.tag,.b,.prob,.chip{font-family:var(--fh)}
-h1{letter-spacing:.02em}.tag{font-size:14px}.b{font-size:16px}.mut{font-size:19px}
+h1,.tag,.b,.prob,.chip{font-weight:400}h1{letter-spacing:.02em;font-size:28px}.tag{font-size:17px}.b{font-size:19px}.mut{font-size:19px}.prob{font-size:23px}.chip{font-size:16px}
 input{font-family:var(--fb);font-size:24px}
 #plan text,svg text{font-family:var(--fb)}#plan text{font-size:17px}
 #hb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px}#hb .b{margin:0;padding:6px 12px}
 html{min-height:100%;background:radial-gradient(900px 500px at 12% -5%,color-mix(in srgb,var(--ac) 20%,transparent),transparent),radial-gradient(800px 500px at 100% 100%,color-mix(in srgb,var(--ok) 14%,transparent),transparent),var(--bg)}
 body{background:transparent;min-height:100vh}
 body.h{max-width:1600px;padding:16px 28px}
-body.h h1{font-size:clamp(22px,2.4vw,34px)}
+body.h h1{font-size:clamp(28px,2.8vw,42px)}
 body.h #app{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:stretch}
 body.h #app .card{margin-top:0;box-shadow:0 10px 30px #0002}
-body.h .prob{font-size:clamp(22px,2.1vw,32px)}
-body.h .tag{font-size:14px}
+body.h .prob{font-size:clamp(26px,2.4vw,38px)}
+body.h .tag{font-size:17px}
 body.h .msg{font-size:clamp(16px,1.4vw,20px)}
 body.h .bx{height:clamp(150px,19vw,260px)}
 body.h .ball{width:46px;height:46px;font-size:15px;line-height:46px}
@@ -88,13 +88,14 @@ body.h .cd{width:66px;height:92px;font-size:20px}
 body.h .sk{width:50px}
 body.h .deck{width:80px;height:112px}
 body.h .drawer{width:130px;height:104px}
-body.h .b{font-size:17px;padding:12px 18px}
+body.h .b{font-size:20px;padding:12px 18px}
 body.h #app>.card:first-child{display:flex;align-items:center;justify-content:center}
 body.h #sc svg{max-height:46vh}
 @media(max-width:900px){body.h #app{grid-template-columns:1fr}}
 .qrj{background:#fff;padding:10px;border-radius:12px;width:min(100%,300px);margin:10px auto}.qrj svg,#dqb svg{width:100%;height:100%;display:block}
 .pt{animation:plant .6s cubic-bezier(.3,1.5,.5,1)}
 @keyframes plant{from{transform:translateY(-70px);opacity:0}}
+.dense .ball{width:26px;height:26px;font-size:10px;line-height:26px}body.h .dense .ball{width:30px;height:30px;line-height:30px}.dense .cd{margin-top:-48px;justify-content:flex-start;padding-top:4px}body.h .dense .cd{margin-top:-66px}.dense .suit .h+.cd{margin-top:4px}.dense .sk{width:30px}
 </style></head><body>
 <h1>🚪 Escape das Gavetas</h1>
 <div id="bar"></div>
@@ -118,17 +119,18 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 let UID="";function fail(m){console.warn(m);let b=$("err");if(!b){b=document.createElement("div");b.id="err";b.style.cssText="position:fixed;left:8px;right:8px;bottom:8px;background:#b3261e;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;font:600 14px system-ui";document.body.appendChild(b)}b.textContent=m;clearTimeout(b._t);b._t=setTimeout(()=>b.remove(),7000)}
 const COL=["#4f46e5","#db2777","#d97706","#059669","#0891b2","#9333ea","#dc2626","#65a30d","#0d9488","#c2410c","#7c3aed","#be185d"];
 const SU="♠♥♦♣",RK=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
-let HLOCK=false,wipe=async()=>{},seen3=new Set(),hd="",hk=[-1,0],bf=-1,cf=-1,tree={},set=()=>{},role=Q.has("host")?"host":"part",me={},last="",sk="",fig=-1,hostReady=false;
-try{me=JSON.parse(sessionStorage.getItem("gav-me"))||{}}catch(e){}
-const st=()=>tree.state||{},GR=()=>Object.entries(tree.g||{}).sort((a,b)=>a[1].t-b[1].t),MV=p=>(tree.mv&&tree.mv[p])||{};
+let HLOCK=false,editing=false,lastRj=0,wipe=async()=>{},seen3=new Set(),hd="",hk=[-1,0],bf=-1,cf=-1,tree={},set=()=>{},role=Q.has("host")?"host":"part",me={},last="",sk="",fig=-1,hostReady=false;
+try{me=JSON.parse(sessionStorage.getItem("gav-me")||localStorage.getItem("gav-me-"+ROOM))||{}}catch(e){}
+const PL=()=>tree.p||{},PLN=()=>Object.keys(PL()).length,st=()=>tree.state||{},GR=()=>Object.entries(tree.g||{}).sort((a,b)=>a[1].t-b[1].t),MV=p=>(tree.mv&&tree.mv[p])||{};
 const gi=id=>GR().findIndex(x=>x[0]==id),gc=id=>COL[Math.max(0,gi(id))%COL.length];
-const NB=()=>Math.max(2,Math.min(8,(st().n||GR().length)-1));
+const pi=id=>{const i=Object.entries(PL()).sort((a,b)=>a[1].t-b[1].t).findIndex(x=>x[0]==id);return i<0?"•":i+1},gcp=id=>{const p=PL()[id];return p?gc(p.g):"#888"};
+const NB=()=>Math.max(2,Math.min(8,(st().n||PLN())-1));
 const P=[
- {t:"Sala 1 · As caixas",p:()=>`São ${NB()} caixas e ${st().n} grupos, cada um com 1 bola. Combinem: nenhuma caixa pode ficar vazia!`,h:"Escolha uma caixa. Olhe o telão e converse com a turma."},
- {t:"Sala 2 · O baralho",p:()=>"O cofre abre com 2 cartas do mesmo naipe. Cada grupo tira 1 carta. Quantas, no mínimo, garantem a abertura?",h:"Toque para tirar sua carta."},
- {t:"Sala 3 · A balança",p:()=>"Cada grupo põe uma bola num prato. Equilibrem a balança!",h:"Escolha o prato esquerdo ou o direito."},
- {t:"Sala 4 · O quadrado",p:()=>"Cada grupo crava 1 ponto num quadrado 2 × 2. Com 5 pontos, o que sempre acontece?",h:"Toque no quadrado para cravar seu ponto."},
- {t:"Sala 5 · As meias",p:()=>"No escuro, cada grupo tira 1 meia da gaveta (3 cores). Quantas meias, no mínimo, garantem um par da mesma cor?",h:"Toque para pegar sua meia no escuro."}];
+ {t:"Sala 1 · As caixas",p:()=>`São ${NB()} caixas e ${st().n} bolas, uma por jogador. Combinem: nenhuma caixa pode ficar vazia!`,h:"Escolha uma caixa. Olhe o telão e converse com a turma."},
+ {t:"Sala 2 · O baralho",p:()=>"O cofre abre com 2 cartas do mesmo naipe. Cada jogador tira 1 carta. Quantas, no mínimo, garantem a abertura?",h:"Toque para tirar sua carta."},
+ {t:"Sala 3 · A balança",p:()=>"Cada jogador põe uma bola num prato. Equilibrem a balança!",h:"Escolha o prato esquerdo ou o direito."},
+ {t:"Sala 4 · O quadrado",p:()=>"Cada jogador crava 1 ponto num quadrado 2 × 2. Com 5 pontos, o que sempre acontece?",h:"Toque no quadrado para cravar seu ponto."},
+ {t:"Sala 5 · As meias",p:()=>"No escuro, cada jogador tira 1 meia da gaveta (3 cores). Quantas meias, no mínimo, garantem um par da mesma cor?",h:"Toque para pegar sua meia no escuro."}];
 const SOCK=["#e11d48","#2563eb","#16a34a"],SN=["vermelha","azul","verde"],sockSvg=c=>`<svg viewBox="0 0 40 52"><path d="M10 2h16v24l10 12q4 7-3 11l-5 2q-6 2-10-4L10 32Z" fill="${c}" stroke="#0005" stroke-width="2"/><rect x="10" y="6" width="16" height="5" fill="#fff7"/></svg>`;
 function confetti(){for(let i=0;i<44;i++){const d=document.createElement("i");d.className="cf";d.style.cssText=`left:${Math.random()*100}vw;background:${COL[i%12]};animation-delay:${Math.random()*.7}s`;document.body.appendChild(d);setTimeout(()=>d.remove(),3800)}}
 
@@ -195,13 +197,19 @@ async function fbDB(){$("app").innerHTML='<p class="mut">Conectando…</p>';
  }catch(e){fail("Não consegui conectar ao Firebase: "+(e.code||e.message))}}
 
 /* ===== entrada ===== */
-function join(){const n=$("nm").value.trim(),g=$("gn").value.trim();if(!n||!g)return;
- const gid=g.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"")||"g"+Date.now();
- me={pid:UID||me.pid||Math.random().toString(36).slice(2,8),name:n,gid,gname:g};try{sessionStorage.setItem("gav-me",JSON.stringify(me))}catch(e){}
- if(!(tree.g&&tree.g[gid]&&tree.g[gid].n)){set("g/"+gid+"/n",g);set("g/"+gid+"/t",Date.now())}set("g/"+gid+"/m/"+me.pid,n);last="";render()}
-function rejoin(){const g=me.gid;if(!(tree.g&&tree.g[g]&&tree.g[g].n)){set("g/"+g+"/n",me.gname||g);set("g/"+g+"/t",Date.now())}set("g/"+g+"/m/"+me.pid,me.name)}
-const moved=()=>MV(st().phase)[me.gid]!==undefined;
-function send(v){if(moved()||st().door=="o")return;set("mv/"+st().phase+"/"+me.gid,v)}
+const sv=()=>{try{const j=JSON.stringify(me);sessionStorage.setItem("gav-me",j);localStorage.setItem("gav-me-"+ROOM,j)}catch(e){}};
+const gslug=g=>g.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"").slice(0,24)||"g"+Date.now().toString(36);
+function enter(n,g){n=(n||"").trim();g=(g||"").trim();if(!n||!g)return;
+ const gid=gslug(g),ex=tree.g&&tree.g[gid]&&tree.g[gid].n,pid=UID||me.pid||Math.random().toString(36).slice(2,10);
+ if(!ex){if(st().started){fail("O jogo já começou: escolha um dos grupos que já existem.");return}set("g/"+gid+"/n",g);set("g/"+gid+"/t",Date.now())}
+ const old=PL()[pid]||{};me={pid,name:n,gid,gname:ex?tree.g[gid].n:g};
+ set("p/"+pid,{n,g:gid,t:old.t||Date.now()});sv();editing=false;last="";render()}
+function join(){enter($("nm").value,$("gn").value)}
+function leave(){if(me.pid)set("p/"+me.pid,null);me={};try{sessionStorage.removeItem("gav-me");localStorage.removeItem("gav-me-"+ROOM)}catch(e){}editing=false;last="";render()}
+function cancelEdit(){editing=false;last="";render()}
+function rejoin(){const g=me.gid;if(!(tree.g&&tree.g[g]&&tree.g[g].n)){if(st().started){me={};return}set("g/"+g+"/n",me.gname||g);set("g/"+g+"/t",Date.now())}set("p/"+me.pid,{n:me.name,g,t:Date.now()})}
+const moved=()=>MV(st().phase)[me.pid]!==undefined;
+function send(v){if(moved()||st().door=="o")return;set("mv/"+st().phase+"/"+me.pid,v)}
 function draw(){send({s:Math.floor(Math.random()*4),r:RK[Math.floor(Math.random()*13)]})}
 function pt(e){const r=e.currentTarget.getBoundingClientRect();send({x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height})}
 
@@ -211,7 +219,7 @@ function pairSq(){const a=Object.values(MV(3)),q=p=>(p.x>.5?1:0)+(p.y>.5?2:0);
  for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)if(q(a[i])==q(a[j]))return[a[i],a[j]];return null}
 function result(){const p=st().phase,m=MV(p),k=Object.keys(m).length,n=st().n;
  if(p==4){const c=[0,0,0];Object.values(m).forEach(v=>c[v.c]++);return c.some(x=>x>1)?{ok:1,t:"Par formado! No pior caso saem 3 cores diferentes e a 4ª meia repete. Pombos: as meias. Gavetas: as 3 cores."}:null}
- if(p==0){if(k<n)return null;return cnts().every(x=>x>=1)?{ok:1,t:`Todas as ${NB()} caixas ocupadas e sobrou 1 com 2 bolas. Pombos: as ${n} bolas. Gavetas: as ${NB()} caixas.`}:{ok:0,t:"Ficou caixa vazia (e repetição antes da hora). Conversem e recomecem!"}}
+ if(p==0){if(k<n)return null;return cnts().every(x=>x>=1)?{ok:1,t:`Todas as ${NB()} caixas ocupadas com ${n} bolas: alguma caixa tem pelo menos ${Math.ceil(n/NB())}. Pombos: as bolas. Gavetas: as caixas.`}:{ok:0,t:"Ficou caixa vazia (e repetição antes da hora). Conversem e recomecem!"}}
  if(p==1){const c=[0,0,0,0];Object.values(m).forEach(v=>c[v.s]++);return c.some(x=>x>1)?{ok:1,t:"Cofre aberto! No pior caso saem 4 naipes diferentes e a 5ª carta repete. Pombos: cartas. Gavetas: naipes."}:null}
  if(p==2){if(k<n)return null;const L=Object.values(m).filter(v=>v==0).length+(n%2==0?1:0),T=n+(n%2==0?1:0);return{ok:1,t:`Impossível equilibrar: ${T} bolas em 2 pratos. Algum prato tem pelo menos ${Math.ceil(T/2)} (esq. ${L}, dir. ${T-L}).`}}
  const q=pairSq();if(q){const d=Math.hypot(q[0].x-q[1].x,q[0].y-q[1].y)*2;return{ok:1,t:`Dois pontos no mesmo quadradinho, a ${d.toFixed(2)} de distância (no máx. √2 ≈ 1,41). Pombos: pontos. Gavetas: 4 quadradinhos.`}}return null}
@@ -223,7 +231,7 @@ function buildPlan(){let h='<rect x="40" y="130" width="130" height="120" fill="
  [[40,10],[170,10],[300,10],[300,130],[170,130]].forEach((r,i)=>h+=`<rect x="${r[0]}" y="${r[1]}" width="130" height="120" fill="var(--r${i%2})" stroke="var(--tx)" stroke-width="4"/><text x="${r[0]+8}" y="${r[1]+18}" font-size="12" fill="var(--mut)">${i+1}. ${RN[i]}</text>`);
  DR.forEach((d,i)=>{h+=`<rect x="${d[0]-1}" y="${d[1]-1}" width="${d[2]+2}" height="${d[3]+2}" fill="var(--bg)"/><rect id="dr${i}" class="dr" x="${d[0]}" y="${d[1]}" width="${d[2]}" height="${d[3]}" fill="var(--wood)" style="transform-box:fill-box;transform-origin:0 0"/>`});
  h+='<g id="fg" class="fgrp"></g>';$("plan").innerHTML=h}
-function figs(){const n=st().n||GR().length||1;let h="";
+function figs(){const n=Math.min(12,GR().length||1);let h="";
  for(let i=0;i<n;i++){const c=COL[i%12],dx=(i%3)*17-17,dy=Math.floor(i/3)*20-14;
   h+=`<g transform="translate(${dx},${dy})"><g class="fig" style="--d:${(i%5)*.1}s"><circle cy="-12" r="4.6" fill="${c}"/><path d="M0-8V4M-6-4H6M0 4L-4 12M0 4L4 12" stroke="${c}" stroke-width="2.3" fill="none" stroke-linecap="round"/></g></g>`}
  $("fg").innerHTML=h}
@@ -234,14 +242,14 @@ function place(r,anim){const g=$("fg"),m=a=>`translate(${a[0]}px,${a[1]}px)`;
 
 /* ===== apresentador ===== */
 function hostInit(){document.body.classList.add("h");hostBar();$("app").innerHTML=`<div class="card"><svg id="plan" viewBox="30 0 410 260"></svg></div><div class="card"><span class="tag" id="tg"></span><div class="prob" id="pb"></div><div id="sc"></div><div id="ms"></div><div id="ct"></div></div>`;buildPlan();figs();fig=-1;sk="";hostReady=true}
-function scene(p){
+function scene(p){$("sc").className=(st().n>12)?"dense":"";
  if(p==0){$("sc").innerHTML='<div class="st3"><div class="row3">'+Array.from({length:NB()},(_,i)=>`<div class="bx" id="bx${i}"><span>${i+1}</span><div class="in"></div></div>`).join("")+"</div></div>"}
  if(p==1){$("sc").innerHTML='<div class="deckrow"><div class="deck"></div><div class="suits">'+[0,1,2,3].map(s=>`<div class="suit" id="su${s}"><div class="h" style="color:${s==1||s==2?"var(--red)":"var(--tx)"}">${SU[s]}</div></div>`).join("")+"</div></div>"}
  if(p==2){$("sc").innerHTML='<svg viewBox="0 0 300 230"><path d="M150 52L120 215H180Z" fill="var(--bd)"/><g id="bm"style="transform-origin:150px 50px"><rect x="40" y="47" width="220" height="6" rx="3" fill="var(--wood)"/></g><g id="pl" class="pan"></g><g id="pr" class="pan"></g></svg>'}
  if(p==3){seen3=new Set();$("sc").innerHTML=""}
  if(p==4){$("sc").innerHTML='<div class="deckrow"><div><div class="drawer"></div><p class="mut">no escuro 🔦</p></div><div class="suits" style="grid-template-columns:repeat(3,1fr)">'+[0,1,2].map(i=>`<div class="suit" id="sk${i}"><div class="h" style="color:${SOCK[i]}">●</div></div>`).join("")+"</div></div>"}}
 function upScene(p){const m=MV(p),E=Object.entries(m);
- if(p==0){E.forEach(([g,v])=>{if(!$("b"+g)&&$("bx"+v)){const b=document.createElement("div");b.className="ball";b.id="b"+g;b.style.setProperty("--c",gc(g));b.textContent=gi(g)+1;$("bx"+v).querySelector(".in").appendChild(b)}});
+ if(p==0){E.forEach(([g,v])=>{if(!$("b"+g)&&$("bx"+v)){const b=document.createElement("div");b.className="ball";b.id="b"+g;b.style.setProperty("--c",gcp(g));b.textContent=pi(g);$("bx"+v).querySelector(".in").appendChild(b)}});
   cnts().forEach((c,i)=>$("bx"+i)&&$("bx"+i).classList.toggle("hit",c>1))}
  if(p==1){E.forEach(([g,v])=>{if(!$("c"+g)&&$("su"+v.s)){const c=document.createElement("div");c.className="cd"+(v.s==1||v.s==2?" r":"");c.id="c"+g;c.textContent=v.r+SU[v.s];fly(c,$("su"+v.s),document.querySelector(".deck"),false)}});
   [0,1,2,3].forEach(s=>$("su"+s).classList.toggle("hit",E.filter(e=>e[1].s==s).length>1))}
@@ -250,57 +258,66 @@ function upScene(p){const m=MV(p),E=Object.entries(m);
   $("bm").style.transform=`rotate(${A}deg)`;
   const pan=(id,x,y,cnt,cl)=>{let h='<path d="M0 0L-30 42M0 0L30 42" stroke="var(--wood)" fill="none"/><path d="M-38 42Q0 66 38 42Z" fill="var(--wood)"/>';
    for(let i=0;i<cnt;i++)h+=`<circle cx="${(i%4)*16-24}" cy="${34-Math.floor(i/4)*16}" r="7" fill="${cl[i]||"#888"}"/><circle cx="${(i%4)*16-26}" cy="${32-Math.floor(i/4)*16}" r="2.2" fill="#fff8"/>`;$(id).innerHTML=h;$(id).style.transform=`translate(${x}px,${y}px)`};
-  const lc=E.filter(e=>e[1]==0).map(e=>gc(e[0])),rc=E.filter(e=>e[1]==1).map(e=>gc(e[0]));if(ex)lc.push("#888");
+  const lc=E.filter(e=>e[1]==0).map(e=>gcp(e[0])),rc=E.filter(e=>e[1]==1).map(e=>gcp(e[0]));if(ex)lc.push("#888");
   pan("pl",150-110*Math.cos(a),50-110*Math.sin(a),L,lc);pan("pr",150+110*Math.cos(a),50+110*Math.sin(a),R,rc)}
  if(p==3){let h='<svg viewBox="0 0 300 330" style="max-width:460px;margin:auto;transform:perspective(900px) rotateX(26deg);filter:drop-shadow(0 16px 10px #0005)"><rect y="20" width="300" height="300" fill="color-mix(in srgb,var(--ac) 8%,var(--card))" stroke="var(--tx)" stroke-width="3"/><path d="M150 20V320M0 170H300" stroke="var(--bd)" stroke-width="2"/>';
   const q=pairSq();if(q)h+=`<line x1="${q[0].x*300}" y1="${q[0].y*300+20}" x2="${q[1].x*300}" y2="${q[1].y*300+20}" stroke="var(--red)" stroke-width="4"/>`;
-  E.forEach(([g,v])=>{const X=v.x*300,Y=v.y*300+20,nw=!seen3.has(g);seen3.add(g);h+=`<g class="${nw?"pt":""}"><ellipse cx="${X}" cy="${Y+2}" rx="10" ry="4" fill="#0005"/><line x1="${X}" y1="${Y}" x2="${X}" y2="${Y-16}" stroke="#9aa" stroke-width="2.5"/><circle cx="${X}" cy="${Y-21}" r="11" fill="${gc(g)}"/><circle cx="${X-3.5}" cy="${Y-25}" r="3.4" fill="#fff6"/><text x="${X}" y="${Y-17}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${gi(g)+1}</text></g>`});$("sc").innerHTML=h+"</svg>"}}
-function sim(){const s=st(),p=s.phase,m=MV(p);GR().forEach(([g])=>{if(m[g]!==undefined)return;let v;
- if(p==0){const c=cnts();const f=c.map((x,i)=>x?-1:i).filter(i=>i>=0);v=f.length?f[Math.floor(Math.random()*f.length)]:Math.floor(Math.random()*NB());m[g]=v}
- if(p==1)v={s:Math.floor(Math.random()*4),r:RK[Math.floor(Math.random()*13)]};
- if(p==2)v=Math.random()<.5?0:1;if(p==3)v={x:Math.random(),y:Math.random()};if(p==4)v={c:Math.floor(Math.random()*3)};
- set("mv/"+p+"/"+g,v);m[g]=v})}
+  E.forEach(([g,v])=>{const X=v.x*300,Y=v.y*300+20,nw=!seen3.has(g);seen3.add(g);h+=`<g class="${nw?"pt":""}"><ellipse cx="${X}" cy="${Y+2}" rx="10" ry="4" fill="#0005"/><line x1="${X}" y1="${Y}" x2="${X}" y2="${Y-16}" stroke="#9aa" stroke-width="2.5"/><circle cx="${X}" cy="${Y-21}" r="11" fill="${gcp(g)}"/><circle cx="${X-3.5}" cy="${Y-25}" r="3.4" fill="#fff6"/><text x="${X}" y="${Y-17}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${pi(g)}</text></g>`});$("sc").innerHTML=h+"</svg>"}}
+function fill(ids){const s=st(),p=s.phase;if(s.door=="o")return;const m=MV(p),k=Object.keys(m).length,c=cnts(),a=ids||Object.keys(PL()).filter(i=>m[i]===undefined);
+ if(!ids)for(let i=a.length;i<s.n-k;i++)a.push("rs"+Date.now().toString(36)+i);
+ a.forEach(id=>{if(m[id]!==undefined)return;let v;
+  if(p==0){const f=c.map((x,i)=>x?-1:i).filter(i=>i>=0);v=f.length?f[Math.floor(Math.random()*f.length)]:Math.floor(Math.random()*NB());c[v]++}
+  else if(p==1)v={s:Math.floor(Math.random()*4),r:RK[Math.floor(Math.random()*13)]};
+  else if(p==2)v=Math.random()<.5?0:1;else if(p==3)v={x:Math.random(),y:Math.random()};else v={c:Math.floor(Math.random()*3)};
+  set("mv/"+p+"/"+id,v);m[id]=v})}
+function pendHtml(p,s){const m=MV(p),k=Object.keys(m).length;if(k>=s.n)return"";const pe=Object.entries(PL()).filter(([id])=>m[id]===undefined);
+ return `<p class="mut">Faltam ${s.n-k}: ${pe.map(([id,v])=>`<button class="b g" style="padding:2px 8px;margin:2px" title="Jogar por ele" onclick="fill(['${id}'])">${esc(v.n)}</button>`).join("")}</p><button class="b g" onclick="fill()">🤖 Jogar pelos que faltam (${s.n-k})</button>`}
 function hostRender(){
  if(HLOCK){hostReady=false;$("hb").innerHTML="";document.body.classList.remove("h");$("app").innerHTML='<div class="card"><div class="prob">⚠ Esta sala já tem outro apresentador</div><p>Ela foi aberta em outro navegador ou aparelho. Para apresentar aqui, abra uma sala nova.</p><button class="b" onclick="novaSala(false,true)">Abrir sala nova</button></div>';return}
  if(!hostReady||!$("plan"))hostInit();const s=st(),ct=$("ct");let c="";
- if(!s.started){$("tg").textContent="Lobby";$("pb").textContent="Aguardando os grupos entrarem… (mínimo de 5 grupos, senão as salas do baralho e do quadrado podem não fechar)";
-  $("sc").innerHTML=`<p class="mut">Os grupos entram em: <b>${joinUrl()}</b></p>${qrBlock()}<div class="chips">${GR().map(([id,g],i)=>`<span class="chip" style="background:${COL[i%12]}">${esc(g.n)} (${Object.keys(g.m||{}).length})</span>`).join("")||'<span class="mut">Nenhum grupo ainda.</span>'}</div>`;
+ if(!s.started){$("tg").textContent="Lobby";$("pb").textContent="Aguardando os jogadores entrarem… (mínimo de 5 jogadores, senão as salas do baralho e do quadrado podem não fechar)";
+  $("sc").innerHTML=`<p class="mut">${PLN()} jogador(es) em ${GR().length} grupo(s). Entrem em: <b>${joinUrl()}</b></p>${qrBlock()}<div class="chips">${GR().map(([id,g],i)=>`<span class="chip" style="background:${COL[i%12]}">${esc(g.n)} (${Object.values(PL()).filter(x=>x.g==id).length})</span>`).join("")||'<span class="mut">Nenhum grupo ainda.</span>'}</div>`;
   $("ms").innerHTML="";sk="";
-  c=`<button class="b" ${GR().length<5?"disabled":""} onclick="set('state',{phase:0,door:'c',n:GR().length,started:1});hostReady=false">Iniciar jogo (${GR().length} grupos)</button>`+(FIREBASE_CONFIG?"":`<button class="b g" onclick="demoGroups()">+ Criar 6 grupos de teste</button>`);
+  c=`<button class="b" ${PLN()<5?"disabled":""} onclick="set('state',{phase:0,door:'c',n:Math.min(60,PLN()),started:1});hostReady=false">Iniciar jogo (${PLN()} jogadores)</button>`+(FIREBASE_CONFIG?"":`<button class="b g" onclick="demoGroups()">+ Criar 6 grupos de teste</button>`);
   figs();place(0,false)}
  else{const p=s.phase,key=p+"|"+NB();if(key!=sk){sk=key;$("tg").textContent=P[p].t;$("pb").textContent=P[p].p();scene(p)}
   const dk=p+"|"+s.door;if(dk!==hd){if(s.door=="o"&&hd!=="")AU.door();hd=dk}const mk=Object.keys(MV(p)).length;if(hk[0]==p&&mk>hk[1])AU.pop();hk=[p,mk];
   upScene(p);const r=s.fin?5:p+(s.door=="o"?1:0);if(r!=fig)place(r,fig>=0);
   DR.forEach((d,i)=>{$("dr"+i).style.transform=(i<p||(i==p&&s.door=="o"))?`rotate(${d[4]=="v"?-82:82}deg)`:"none"});
   const res=s.door=="o"?null:result();if(res&&res.ok&&cf!=p){cf=p;confetti();AU.ding()}if(res&&!res.ok&&bf!=p){bf=p;AU.bad()}
-  $("ms").innerHTML=s.fin?'<div class="msg ok">🎉 A turma inteira escapou junta! Cada sala foi um princípio das gavetas.</div>':res?`<div class="msg ${res.ok?"ok":"bad"}">${res.ok?"✔ ":"✘ "}${res.t}</div>`:`<div class="mut">${Object.keys(MV(p)).length} de ${s.n} grupos jogaram…</div>`;
+  $("ms").innerHTML=s.fin?'<div class="msg ok">🎉 A turma inteira escapou junta! Cada sala foi um princípio das gavetas.</div>':res?`<div class="msg ${res.ok?"ok":"bad"}">${res.ok?"✔ ":"✘ "}${res.t}</div>`:`<div class="mut">${Object.keys(MV(p)).length} de ${s.n} jogadores jogaram…</div>`;
   if(s.fin)c=`<button class="b g" onclick="resetAll()">Jogar de novo</button>`;
   else if(s.door=="o")c=`<button class="b" onclick="nextRoom()">${p<4?"Próxima sala →":"Sair da casa 🚪"}</button>`;
   else{if(res&&res.ok)c=`<button class="b" onclick="set('state/door','o')">Abrir a porta 🚪</button>`;
-   c+=(FIREBASE_CONFIG?"":`<button class="b g" onclick="sim()">Simular grupos restantes</button>`)+`<button class="b g" onclick="set('mv/${p}',null);sk='';cf=-1;">Recomeçar sala</button>`}}
+   c+=pendHtml(p,s)+`<button class="b g" onclick="set('mv/${p}',null);sk='';cf=-1;">Recomeçar sala</button>`}}
  ct.innerHTML=c}
 function nextRoom(){const p=st().phase;if(p>=4){set("state/fin",true);return}set("state",{phase:p+1,door:"c",n:st().n,started:1});sk=""}
-function resetAll(){set("state",null);set("mv",null);set("g",null);hostReady=false;sk="";fig=-1;cf=-1}
-function demoGroups(){["Águias","Tigres","Lobos","Corujas","Raposas","Pandas"].forEach((n,i)=>{const id=n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(!(tree.g&&tree.g[id]))set("g/"+id,{n,t:Date.now()+i,m:{x:"Colega"}})})}
+function resetAll(){set("state",null);set("mv",null);hostReady=false;sk="";fig=-1;cf=-1}
+function demoGroups(){["Águias","Tigres","Lobos","Corujas","Raposas","Pandas"].forEach((n,i)=>{const id=gslug(n);if(!(tree.g&&tree.g[id])){set("g/"+id,{n,t:Date.now()+i});[1,2].forEach(j=>set("p/d"+id+j,{n:"Colega "+j,g:id,t:Date.now()+i*10+j}))}})}
 
 /* ===== participante ===== */
 function partRender(){const s=st();let h;hostReady=false;document.body.classList.remove("h");$("hb").innerHTML="";
- if(!me.gid)h=`<div class="card"><b>Entrar na sala "${ROOM}"</b><input id="nm" placeholder="Seu nome" maxlength="20"><input id="gn" placeholder="Nome do seu grupo" maxlength="20"><p class="mut">Quem usar o mesmo nome de grupo entra na mesma equipe.</p><button class="b" onclick="join()">Entrar</button></div>`;
- else{const g=(tree.g||{})[me.gid]||{n:"…",m:{}},top=`<div class="chips"><span class="chip" style="background:${gc(me.gid)}">${esc(g.n)}</span><span class="mut">${esc(me.name)}</span></div>`;
-  if(!s.started)h=`<div class="card">${top}<p><b>Tudo certo!</b> Aguardando o apresentador iniciar…</p><p class="mut">${GR().length} grupo(s) na sala.</p></div>`;
+ const gl=GR().map(([id,g])=>`<button class="b g" onclick="$('gn').value=this.textContent">${esc(g.n)}</button>`).join("");
+ const form=(t,bt)=>`<div class="card"><b>${t}</b><input id="nm" placeholder="Seu nome" maxlength="20" value="${esc(me.name||"")}"><input id="gn" placeholder="Nome do seu grupo" maxlength="20" value="${esc(me.gname||"")}">${gl?`<p class="mut">Grupos que já existem (toque para escolher):</p><div>${gl}</div>`:""}<p class="mut">${s.started?"O jogo já começou: só dá para entrar em grupo que já existe.":"Quem usar o mesmo nome de grupo entra na mesma equipe."}</p><button class="b" onclick="join()">${bt}</button>${me.gid?'<button class="b g" onclick="cancelEdit()">Cancelar</button><button class="b g" onclick="leave()">Sair do grupo</button>':""}</div>`;
+ if(!me.gid)h=form(`Entrar na sala "${ROOM}"`,"Entrar");
+ else if(editing)h=form("Trocar nome ou grupo","Salvar");
+ else{const g=GR().find(x=>x[0]==me.gid),gn=g?g[1].n:(me.gname||"…"),
+  top=`<div class="chips"><span class="chip" style="background:${gc(me.gid)}">${esc(gn)}</span><span class="mut">${esc(me.name)}</span><button class="b g" style="padding:2px 10px;margin:0" onclick="editing=true;last='';render()">✏️ Trocar</button></div>`;
+  if(!s.started)h=`<div class="card">${top}<p><b>Tudo certo!</b> Aguardando o apresentador iniciar…</p><p class="mut">${PLN()} jogador(es) em ${GR().length} grupo(s).</p></div>`;
   else if(s.fin)h=`<div class="card">${top}<div class="prob">🎉 Vocês escaparam juntos!</div></div>`;
-  else{const p=s.phase,mv=MV(p)[me.gid],done=mv!==undefined;let a="";
+  else{const p=s.phase,M=MV(p),mv=M[me.pid],done=mv!==undefined;let a="";
+   const mates=Object.entries(PL()).filter(([,v])=>v.g==me.gid).map(([id,v])=>esc(v.n)+(M[id]!==undefined?" ✔":" …")).join(" · ");
    if(s.door=="o")a=`<div class="msg ok">🚪 A porta se abriu! Olhem o telão.</div>`;
    else{if(p==0){const c=cnts();a='<div class="grid">'+c.map((x,i)=>`<button class="b${mv===i?" on":""}" ${done?"disabled":""} onclick="send(${i})">Caixa ${i+1}<br>(${x})</button>`).join("")+"</div>"}
     if(p==1)a=done?`<div class="prob">Sua carta: ${mv.r}${SU[mv.s]}</div>`:`<button class="b" onclick="draw()">🃏 Tirar carta</button>`;
     if(p==4)a=done?`<div class="prob">Sua meia: ${SN[mv.c]}</div><div style="width:50px">${sockSvg(SOCK[mv.c])}</div>`:`<button class="b" onclick="send({c:Math.floor(Math.random()*3)})">🧦 Pegar meia no escuro</button>`;
-    if(p==2){const L=Object.values(MV(2)).filter(v=>v==0).length,R=Object.values(MV(2)).filter(v=>v==1).length;a=`<div class="grid" style="grid-template-columns:1fr 1fr"><button class="b${mv===0?" on":""}" ${done?"disabled":""} onclick="send(0)">⬅ Esquerdo (${L})</button><button class="b${mv===1?" on":""}" ${done?"disabled":""} onclick="send(1)">Direito (${R}) ➡</button></div>`}
-    if(p==3)a=`<svg viewBox="0 0 300 300" style="max-width:320px;margin:auto" onclick="pt(event)"><rect width="300" height="300" fill="var(--card)" stroke="var(--tx)" stroke-width="3"/><path d="M150 0V300M0 150H300" stroke="var(--bd)" stroke-width="2"/>${Object.entries(MV(3)).map(([g,v])=>`<circle cx="${v.x*300}" cy="${v.y*300}" r="9" fill="${gc(g)}"/>`).join("")}</svg>`;
-    a+=done?'<p class="mut">✔ Enviado! Agora ajudem a turma.</p>':`<p class="mut">${P[p].h}</p>`}
-   h=`<div class="card">${top}<span class="tag">${P[p].t}</span><div class="prob">${P[p].p()}</div>${a}</div>`}}
- if(h!==last){$("app").innerHTML=h;last=h}}
+    if(p==2){const L=Object.values(M).filter(v=>v==0).length,R=Object.values(M).filter(v=>v==1).length;a=`<div class="grid" style="grid-template-columns:1fr 1fr"><button class="b${mv===0?" on":""}" ${done?"disabled":""} onclick="send(0)">⬅ Esquerdo (${L})</button><button class="b${mv===1?" on":""}" ${done?"disabled":""} onclick="send(1)">Direito (${R}) ➡</button></div>`}
+    if(p==3)a=`<svg viewBox="0 0 300 300" style="max-width:320px;margin:auto" onclick="pt(event)"><rect width="300" height="300" fill="var(--card)" stroke="var(--tx)" stroke-width="3"/><path d="M150 0V300M0 150H300" stroke="var(--bd)" stroke-width="2"/>${Object.entries(M).map(([g,v])=>`<circle cx="${v.x*300}" cy="${v.y*300}" r="9" fill="${gcp(g)}"/>`).join("")}</svg>`;
+    a+=done?'<p class="mut">✔ Enviado! Agora ajudem seu grupo e a turma.</p>':`<p class="mut">${P[p].h}</p>`}
+   h=`<div class="card">${top}<span class="tag">${P[p].t}</span><div class="prob">${P[p].p()}</div>${a}<p class="mut">Seu grupo: ${mates||"—"}</p></div>`}}
+ if(h!==last){const ae=document.activeElement;if(ae&&ae.tagName=="INPUT"&&$("app").contains(ae)&&(!me.gid||editing))return;$("app").innerHTML=h;last=h}}
 
-function render(){if(role=="host")hostRender();else{if(FIREBASE_CONFIG&&!tree.host){last="";$("hb").innerHTML="";$("app").innerHTML='<div class="card"><div class="prob">Sala não aberta</div><p>O apresentador ainda não abriu esta sala, ou ela foi encerrada. Peça o QR atualizado. Esta tela entra sozinha quando a sala abrir.</p></div>';return}if(me.gid&&!st().started&&!(((tree.g||{})[me.gid]||{}).m||{})[me.pid])rejoin();partRender()}}
+function render(){if(role=="host")hostRender();else{if(FIREBASE_CONFIG&&!tree.host){last="";$("hb").innerHTML="";$("app").innerHTML='<div class="card"><div class="prob">Sala não aberta</div><p>O apresentador ainda não abriu esta sala, ou ela foi encerrada. Peça o QR atualizado. Esta tela entra sozinha quando a sala abrir.</p></div>';return}if(me.gid&&!PL()[me.pid]&&Date.now()-lastRj>3000){lastRj=Date.now();rejoin()}partRender()}}
 function bar(){if(FIREBASE_CONFIG){$("bar").innerHTML="";return}
  $("bar").innerHTML=`<div class="tabs"><button class="b ${role=="host"?"":"g"}" onclick="role='host';last='';hostReady=false;render();bar()">📽️ Apresentador</button><button class="b ${role=="part"?"":"g"}" onclick="role='part';last='';render();bar()">📱 Participante</button></div><p class="mut">Modo demonstração (sem Firebase). Abas do mesmo navegador sincronizam entre si.</p>`}
 bar();FIREBASE_CONFIG?fbDB():localDB();
